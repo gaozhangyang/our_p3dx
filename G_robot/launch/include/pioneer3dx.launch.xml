@@ -1,0 +1,47 @@
+<launch>
+
+  <arg name="x" default="5.0" />
+  <arg name="y" default=".0" />
+  <arg name="z" default="0.0" />
+  <arg name="yaw" default="-2.0" />
+
+  <!-- Setup controllers -->
+  <!-- rosparam file="$(find fetch_gazebo)/param/freight_controllers.yaml" command="load" / -->
+
+  <!-- URDF and TF support -->
+  <!-- Put a robot in gazebo, make it look pretty -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find G_robot)/urdf/pioneer3dx.xacro'" />
+  
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model p3dx -param robot_description" />
+
+
+  <!--Load the joint controllers to param server-->
+  <rosparam file="$(find G_robot)/param/pioneer3dx.yaml" command="load"/>
+
+
+  <!-- load the controllers for p3dx-->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/xbot" args="joint1_position_controller joint2_position_controller joint_state_controller"/>
+
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <!--for p3dx-->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" ns="/xbot" respawn="false" output="screen">
+    <param name="publish_frequency" value="20.0"/>
+  </node>
+
+
+  <!-- Start a mux between application and teleop, but the switch must be called by service rather than automatically -->
+  <!--<node pkg="topic_tools" type="mux" name="cmd_vel_mux" respawn="true" args="/cmd_vel /cmd_vel_mux/input/teleop /cmd_vel_mux/input/navi">
+    <remap from="mux" to="cmd_vel_mux"/>
+  </node>-->
+
+  <!-- To make the interface of simulation identical to real XBot -->
+  <node pkg="nodelet" type="nodelet" name="mobile_base_nodelet_manager" args="manager"/>
+  <node pkg="nodelet" type="nodelet" name="cmd_vel_mux"  args="load yocs_cmd_vel_mux/CmdVelMuxNodelet mobile_base_nodelet_manager">
+    <param name="yaml_cfg_file" value="$(find G_robot)/param/mux.yaml"/>
+    <remap from="cmd_vel_mux/output/cmd_vel" to="cmd_vel"/>
+  </node>
+
+
+</launch>

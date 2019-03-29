@@ -1,0 +1,27 @@
+<launch>
+
+  <arg name="robot" default="pioneer3dx"/> <!--pioneer3dx xbot-u-->
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+
+  <!-- Start Gazebo with a blank world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find G_robot)/worlds/ROS-Academy.world"/>
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include>
+
+  <!-- Oh, you wanted a robot? -->
+  <include file="$(find G_robot)/launch/include/$(arg robot).launch.xml" />
+  
+  <!--启动rviz-->
+  <!--在启动rviz时，以下语句必须提前执行，否则rviz收不到关节之间的转换关系-->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" ></node>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find G_slam)/rviz/slam.rviz"/>
+  
+</launch>

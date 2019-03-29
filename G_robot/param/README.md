@@ -1,0 +1,3 @@
+mux.yaml中定义了多个控制源的优先级，比如手动控制的优先级高于自主导航
+pioneer3dx.yaml 是p3dxd的PID控制器
+

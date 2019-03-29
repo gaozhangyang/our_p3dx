@@ -1,0 +1,5 @@
+pioneer3dx.xacro:里面定义了关节间的坐标转换关系
+pioneer3dx_wheel.xacro：定义了轮子与机器人本体的坐标转换关系
+materials.xacro：大概是连杆颜色
+pioneer3dx.gazebo：在gazebo里面的颜色、碰撞属性还有控制插件
+pioneer3dx.xml：大整合，在gazebo里面的形状、颜色、碰撞属性、关节间的转换关系
