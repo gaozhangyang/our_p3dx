@@ -1,4 +1,4 @@
-![Image text](https://github.com/gaozhangyang/our_p3dx/blob/master/Our_Project.png)
+![Image text](https://raw.github.com/gaozhangyang/our_p3dx/blob/master/Our_Project.png)
 
 # G_robot:
 
