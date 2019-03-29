@@ -1,12 +1,12 @@
-#G_robot:
+# G_robot:
 
 提供机器人与仿真环境，不需要我们管
 
-#G_slam
+# G_slam
 
 建立地图，可以用它导航，不需要我们管
 
-#G_navigation
+# G_navigation
 
 导航，需要我们写代码
 连续输入：当前地图(有已知区域和未知区域)
