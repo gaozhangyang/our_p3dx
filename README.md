@@ -1,6 +1,5 @@
 ![Image text](https://github.com/gaozhangyang/our_p3dx/blob/master/Our_Project.png)
 
-<img src="https://github.com/gaozhangyang/our_p3dx/blob/master/Our_Project.png" ,border="10" />
 
 # G_robot:
 
