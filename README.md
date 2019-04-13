@@ -14,3 +14,16 @@
 连续输入：当前地图(有已知区域和未知区域)
 连续输出:下一个想要到达的目标点坐标
 注意：当机器人被墙堵住、夹住时，如何调整至正常状态
+
+## 运行方法
+1.提供仿真环境
+roslaunch G_robot robot_spawn.launch
+
+2.手动控制机器人
+rosrun G_robot robot_keyboard_teleop.py
+
+3.运行建图程序gmapping
+roslaunch G_slam gmapping_demo.launch
+
+4.导航
+roslaunch G_navigation move_base.launch
